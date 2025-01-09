@@ -7,108 +7,108 @@ import java.nio.file.*;
 
 public class Window extends JFrame {
     private static final String TODO_FILE = System.getProperty("user.home") + File.separator + "todo_list.txt";
-    private DefaultListModel<String> todoListModel;
-    private JList<String> todoList;
+    private DefaultListModel<String> model;
+    private JList<String> list;
 
     public Window() {
-        ImageIcon img = new ImageIcon("C:\\Github Repo\\To-do with autostartup\\src\\icon.png");
+        ImageIcon applicationicon = new ImageIcon("C:\\Github Repo\\To-do with autostartup\\src\\icon.png");
         setTitle("To-Do List");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setIconImage(img.getImage());
+        setIconImage(applicationicon.getImage());
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = screenSize.width / 2;
-        int height = screenSize.height / 2;
-        setSize(width, height);
+        Dimension beeldGrote = Toolkit.getDefaultToolkit().getScreenSize();
+        int breedte = beeldGrote.width / 2;
+        int hoogte = beeldGrote.height / 2;
+        setSize(breedte, hoogte);
         setLocationRelativeTo(null);
 
         initComponents();
-        loadTodoList();
+        getList();
     }
 
     private void initComponents() {
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-        mainPanel.setBackground(new Color(240, 240, 240));
+        JPanel mainPaneel = new JPanel();
+        mainPaneel.setLayout(new BorderLayout());
+        mainPaneel.setBackground(new Color(240, 240, 240));
 
-        JLabel titleLabel = new JLabel("My To-Do List", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setForeground(Color.black);
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
+        JLabel titelhouder = new JLabel("My To-Do List", SwingConstants.CENTER);
+        titelhouder.setFont(new Font("Arial", Font.BOLD, 24));
+        titelhouder.setForeground(Color.black);
+        titelhouder.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        mainPaneel.add(titelhouder, BorderLayout.NORTH);
 
-        todoListModel = new DefaultListModel<>();
-        todoList = new JList<>(todoListModel);
-        todoList.setFont(new Font("Arial", Font.PLAIN, 16));
-        todoList.setBackground(new Color(255, 255, 255));
-        todoList.setSelectionBackground(Color.lightGray);
-        todoList.setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 1));
+        model = new DefaultListModel<>();
+        list = new JList<>(model);
+        list.setFont(new Font("Arial", Font.PLAIN, 16));
+        list.setBackground(new Color(255, 255, 255));
+        list.setSelectionBackground(Color.lightGray);
+        list.setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 1));
 
-        JScrollPane scrollPane = new JScrollPane(todoList);
-        scrollPane.setBorder(BorderFactory.createTitledBorder("Tasks"));
-        scrollPane.setBackground(Color.WHITE);
-        mainPanel.add(scrollPane, BorderLayout.CENTER);
+        JScrollPane taakvak = new JScrollPane(list);
+        taakvak.setBorder(BorderFactory.createTitledBorder("Tasks"));
+        taakvak.setBackground(Color.WHITE);
+        mainPaneel.add(taakvak, BorderLayout.CENTER);
 
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new BorderLayout(10, 10));
-        inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        inputPanel.setBackground(new Color(240, 240, 240));
+        JPanel textvak = new JPanel();
+        textvak.setLayout(new BorderLayout(10, 10));
+        textvak.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        textvak.setBackground(new Color(240, 240, 240));
 
-        JTextField inputField = new JTextField();
-        inputField.setFont(new Font("Arial", Font.PLAIN, 16));
-        inputField.setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 1));
+        JTextField textveld = new JTextField();
+        textveld.setFont(new Font("Arial", Font.PLAIN, 16));
+        textveld.setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 1));
 
-        JButton addButton = new JButton("Add Task");
-        addButton.setFont(new Font("Arial", Font.BOLD, 14));
-        addButton.setBackground(new Color(50, 150, 50));
-        addButton.setForeground(Color.BLACK);
-        addButton.setFocusPainted(false);
-        addButton.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
+        JButton toevoegbutton = new JButton("Add Task");
+        toevoegbutton.setFont(new Font("Arial", Font.BOLD, 14));
+        toevoegbutton.setBackground(new Color(50, 150, 50));
+        toevoegbutton.setForeground(Color.BLACK);
+        toevoegbutton.setFocusPainted(false);
+        toevoegbutton.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
 
-        JButton removeButton = new JButton("Remove Task");
-        removeButton.setFont(new Font("Arial", Font.BOLD, 14));
-        removeButton.setBackground(new Color(200, 50, 50));
-        removeButton.setForeground(Color.BLACK);
-        removeButton.setFocusPainted(false);
-        removeButton.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
+        JButton deletebutton = new JButton("Remove Task");
+        deletebutton.setFont(new Font("Arial", Font.BOLD, 14));
+        deletebutton.setBackground(new Color(200, 50, 50));
+        deletebutton.setForeground(Color.BLACK);
+        deletebutton.setFocusPainted(false);
+        deletebutton.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1, 2, 10, 10));
-        buttonPanel.add(addButton);
-        buttonPanel.add(removeButton);
-        buttonPanel.setBackground(new Color(240, 240, 240));
+        JPanel knopfield = new JPanel();
+        knopfield.setLayout(new GridLayout(1, 2, 10, 10));
+        knopfield.add(toevoegbutton);
+        knopfield.add(deletebutton);
+        knopfield.setBackground(new Color(240, 240, 240));
 
-        inputPanel.add(inputField, BorderLayout.CENTER);
-        inputPanel.add(buttonPanel, BorderLayout.EAST);
+        textvak.add(textveld, BorderLayout.CENTER);
+        textvak.add(knopfield, BorderLayout.EAST);
 
-        mainPanel.add(inputPanel, BorderLayout.SOUTH);
+        mainPaneel.add(textvak, BorderLayout.SOUTH);
 
-        addButton.addActionListener(e -> {
-            String item = inputField.getText().trim();
+        toevoegbutton.addActionListener(e -> {
+            String item = textveld.getText().trim();
             if (!item.isEmpty()) {
-                todoListModel.addElement((todoListModel.size() + 1) + ". " + item);
-                inputField.setText("");
-                saveTodoList();
+                model.addElement((model.size() + 1) + ". " + item);
+                textveld.setText("");
+                writeList();
             }
         });
 
-        removeButton.addActionListener(e -> {
-            int selectedIndex = todoList.getSelectedIndex();
+        deletebutton.addActionListener(e -> {
+            int selectedIndex = list.getSelectedIndex();
             if (selectedIndex != -1) {
-                todoListModel.remove(selectedIndex);
-                renumberTodoList();
-                saveTodoList();
+                model.remove(selectedIndex);
+                maaklijstBeter();
+                writeList();
             }
         });
 
-        add(mainPanel);
+        add(mainPaneel);
     }
 
-    private void loadTodoList() {
+    private void getList() {
         try {
-            Path filePath = Paths.get(TODO_FILE);
-            if (Files.exists(filePath)) {
-                Files.lines(filePath).forEach(todoListModel::addElement);
+            Path storagefilepath = Paths.get(TODO_FILE);
+            if (Files.exists(storagefilepath)) {
+                Files.lines(storagefilepath).forEach(model::addElement);
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error loading to-do list: " + e.getMessage(),
@@ -116,11 +116,11 @@ public class Window extends JFrame {
         }
     }
 
-    private void saveTodoList() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(TODO_FILE))) {
-            for (int i = 0; i < todoListModel.size(); i++) {
-                writer.write(todoListModel.getElementAt(i));
-                writer.newLine();
+    private void writeList() {
+        try (BufferedWriter schrijfmijntaken = new BufferedWriter(new FileWriter(TODO_FILE))) {
+            for (int i = 0; i < model.size(); i++) {
+                schrijfmijntaken.write(model.getElementAt(i));
+                schrijfmijntaken.newLine();
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error saving to-do list: " + e.getMessage(),
@@ -128,13 +128,13 @@ public class Window extends JFrame {
         }
     }
 
-    private void renumberTodoList() {
-        for (int i = 0; i < todoListModel.size(); i++) {
-            String item = todoListModel.getElementAt(i);
-            int indexOfDot = item.indexOf(".");
-            if (indexOfDot != -1) {
-                item = (i + 1) + item.substring(indexOfDot);
-                todoListModel.set(i, item);
+    private void maaklijstBeter() {
+        for (int i = 0; i < model.size(); i++) {
+            String item = model.getElementAt(i);
+            int indexofpunt = item.indexOf(".");
+            if (indexofpunt != -1) {
+                item = (i + 1) + item.substring(indexofpunt);
+                model.set(i, item);
             }
         }
     }
